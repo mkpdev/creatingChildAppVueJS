@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+	<script type="text/x-template" id="item-template">
+  	<div class="live">  
+	    <li>
+      	<!-- <button class="cust-btn" @click="showModal = true">+</button> -->
+      	<button class="cust-btn" @click="toggle(); changeType(); addChild();">+</button>
+      	<modal v-if="showModal" @close="showModal = false">
+				</modal>
+      	<ol v-show="open">
+        	<item class="item" v-for="(model, index) in model.children" :model="model">
+        	</item>
+      	</ol>
+	    </li>
+  	</div>
+	</script>
+
+	<script type="text/x-template" id="modal-template">
+  	<transition name="modal">
+	    <div class="modal-mask">
+      	<div class="modal-wrapper">
+	        <div class="modal-container">
+          	<div class="modal-header cust-header">
+              Select element to add:
+          	</div>
+          	<div class="modal-body">
+            	<slot name="body">
+            		<button class="cust-condition" @click="useMethods()">Condition</button>
+            		<button class="cust-action" @click="useMethods()">Action</button>
+            	</slot>
+          	</div>
+	        </div>
+      	</div>
+	    </div>
+  	</transition>
+	</script>
+
+	<!-- the demo root element -->
+	<ul id="demo">
+  	<item class="item" :model="treeData">
+  	</item>
+	</ul>
+
+	<script src="app.js"></script>
+</body>
+</html>
